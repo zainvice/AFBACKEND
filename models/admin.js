@@ -1,14 +1,14 @@
 const mongoose = require ('mongoose')
 
-const userSchema = new mongoose.Schema({
-    fullName: {
-        type: String,
-        required: true
-    },
+const adminSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true
 
+    },
+    fullName: {
+        type: String,
+        required: true
     },
     phone: {
         type: String,
@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        default: "user"
+        default: "admin"
     },
     active: {
         type: Boolean,
@@ -34,12 +34,18 @@ const userSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "Proposal"
         }
+    ],
+    drafts: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Draft"
+        }
     ]
 
-},
+}, 
 {
     timestamps:true
 }
 )
 
-module.exports = mongoose.model('User', userSchema)
+module.exports = mongoose.model('Admin', adminSchema)

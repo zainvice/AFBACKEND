@@ -303,7 +303,7 @@ const updatedraft = asycHandler(async (req, res) =>{
         }
     }
     if(updateddraft){
-        res.status(200).json({message: "Successfull"})
+        return res.status(200).json({message: "Successfull"})
     }
 })
 

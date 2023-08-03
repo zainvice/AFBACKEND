@@ -141,6 +141,7 @@ const updateproposal = asycHandler(async (req, res) =>{
     
     const updatedproposal= await Proposal.findByIdAndUpdate(proposal._id, proposal)
     if(updatedproposal){
+        res.status(200)
         if(foundAdmin){
         
             sendEmail(
@@ -155,8 +156,9 @@ const updateproposal = asycHandler(async (req, res) =>{
         }
     }
 
-    res.json({message: `${updatedproposal.summary} updated!`})
+    
     console.log('Updated')
+    return res.json({message: `Updated!`})
 })
 
 // @des delete USER

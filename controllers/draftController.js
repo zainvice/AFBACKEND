@@ -302,6 +302,9 @@ const updatedraft = asycHandler(async (req, res) =>{
             
         }
     }
+    if(updateddraft){
+        res.status(200).json({message: "Successfull"})
+    }
 })
 
 // @des delete USER

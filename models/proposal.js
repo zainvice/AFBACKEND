@@ -1,14 +1,65 @@
 const mongoose = require ('mongoose')
 
 const proposalSchema = new mongoose.Schema({
-    topic: {
+    proposalId: {
         type: String,
-        required: true
+        required: true,
+    },
+    proposalData: {
+        type: Object,
+        required: false
+    },
+    introductionData: {
+        type: Object,
+        required: false
+    },
+    coverData: {
+        type: Object,
+        required: false
+    },
+    planofactionData: {
+        type: Object,
+        required: false
+    },
+    investmentData: {
+        type: Object,
+        required: false
+    },
+    aboutusData: {
+        type: Object,
+        required: false
+    },
+    closingData: {
+        type: Object,
+        required: false
+    },
+    contactsData: {
+        type: Object,
+        required: false
+    },
+    reviewsData: {
+        type: Object,
+        required: false
+    },
+    corporateVideoData: {
+        type: Object,
+        required: false
+    },
+    impressionData: {
+        type: Object,
+        required: false
+    },
+    acceptData: {
+        type: Object,
+        required: false
+    },
+    questionData: {
+        type: Object,
+        required: false
     },
     clients_email: {
         type: String,
-        required: true
-
+        required: false
     },
     clients_name: {
         type: String,
@@ -16,29 +67,25 @@ const proposalSchema = new mongoose.Schema({
     },
     clients_GST: {
         type: String,
-        required: true
+        required: false
     },
     clients_phone: {
         type: String,
-        required: true
-    },
-    summary: {
-        type: String,
-        required: true
+        required: false
     },
     sender: {
         type: String,
-        default: "Admin"
+        required: false
     },
     reciever: {
         type: String,
-        default: "User"
+        default: "User",
     },
-    status:{
+    status: {
         type: String,
-        default: "Pending"
+        default: "Pending",
     }
-
+    
 
 },
 {

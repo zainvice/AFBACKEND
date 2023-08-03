@@ -9,11 +9,12 @@ const asyncHandler = require('express-async-handler')
 // @ access public
 const login = asyncHandler( async(req, res) => {
     const{ username, password, email } = req.body
+    console.log(email, password)
     if(!email||!password){
         return res.status(400).json({ message: 'All fields are required'})
     }
     
-    const foundUser = await User.findOne({email}).exec()
+    const foundUser = undefined
     const foundAdmin = await Admin.findOne({email}).exec()
     
     if(!foundUser&&!foundAdmin){

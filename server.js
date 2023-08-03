@@ -13,8 +13,9 @@ const {logEvents}= require('./middleware/logger')
 const bodyParser = require('body-parser');
 const PORT =process.env.PORT || 3500
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+// Increase the limit to allow larger request bodies (e.g., 10 MB)
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 console.log(process.env.NODE_ENV)
 

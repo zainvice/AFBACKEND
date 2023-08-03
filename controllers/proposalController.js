@@ -3,6 +3,7 @@ const User = require('../models/user')
 const asycHandler= require('express-async-handler')
 const Admin = require('../models/admin')
 const sendEmail = require("../utils/email/sendEmail");
+const multer = require('multer');
 // @des GET ALL USERS
 // @route GET /users
 // @access Private
@@ -19,11 +20,10 @@ const getAllproposals = asycHandler(async (req, res) =>{
 // @access Private
 
 const createNewproposal = asycHandler(async (req, res) =>{
-        const{topic, summary, clients_name, clients_email, clients_phone, clients_GST, sender_email}= req.body
-        
-        
+        const {proposalId, coverData, introductionData, proposalData, planofactionData , investmentData, aboutusData, contactsData, reviewsData, corporateVideoData, impressionData, closingData,  sender_email, clients_name, clients_email, clients_phone, clients_GST, sendProp}= req.body
+    
         //Confirm data 
-        if (!topic||!summary||!clients_name|| !clients_email|| !clients_phone|| !clients_GST){
+        if (!clients_name|| !clients_email|| !clients_phone|| !clients_GST){
                 return res.status(400).json({message: 'Fill all required fields!'})
 
         }
@@ -54,12 +54,18 @@ const createNewproposal = asycHandler(async (req, res) =>{
                 reciever= foundUser.email
             }
         }
+        
+        
+          // ... (existing code)
+        
+          // Add images to proposalObject
+          
 
-        const proposalObject ={ topic, summary, clients_name, clients_email, clients_phone, clients_GST}
+        const proposalObject ={ clients_name, clients_email, clients_phone, clients_GST, proposalId, coverData, introductionData, proposalData, planofactionData , investmentData, aboutusData, contactsData, reviewsData, corporateVideoData, impressionData, closingData}
 
         // Create a store newproposal
 
-        const newProposal = await Proposal.create({ topic, summary, clients_name, clients_email, clients_phone, clients_GST, sender, reciever});
+        const newProposal = await Proposal.create({proposalObject});
 
         
         if(newProposal){
@@ -100,24 +106,24 @@ const createNewproposal = asycHandler(async (req, res) =>{
 // @access Private
 
 const updateproposal = asycHandler(async (req, res) =>{
-    const{_id, status, sender}= req.body
+    const{proposalId, status, sender, acceptData, questionData}= req.body
 
     //Confirm Data
-    if(!_id){
+    if(!proposalId){
         console.log('ID NOT FOUND')
         return res.status(400).json({meesage: 'ID required!'})
     }
-    const proposal = await Proposal.findById(_id).exec()
+    const proposal = await Proposal.findOne({proposalId}).exec()
     if(!proposal){
         console.log('PROPO NOT FOUND!')
         return res.status(400).json({message: 'Proposal not found!'})
     }
     //Check for duplicates
-
+    
     //const duplicates= await Proposal.findOne({topic, clients_name}).lean().exec()
 
     //Allow updates to the original user
-    //if (duplicates && duplicates._id.toString() !== proposal._id){
+    //if (duplicates && duplicates.proposalId.toString() !== proposal._id){
     //        return res.status(409).json({message: 'Duplicate Proposal'})
     //}
     let foundAdmin
@@ -127,6 +133,10 @@ const updateproposal = asycHandler(async (req, res) =>{
     
     }
     proposal.status= status
+    if(acceptData)
+        proposal.acceptData = acceptData
+    if(questionData)
+        proposal.questionData = questionData
     
     
     const updatedproposal= await Proposal.findByIdAndUpdate(proposal._id, proposal)

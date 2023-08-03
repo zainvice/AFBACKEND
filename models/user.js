@@ -14,9 +14,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    GST: {
+        type: String,
+        required: false
+    },
     password: {
         type: String,
-        required: true
+        required: false
     },
     role: {
         type: String,

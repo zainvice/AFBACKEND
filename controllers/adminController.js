@@ -44,7 +44,7 @@ const createNewAdmin = asyncHandler(async (req, res) =>{
 
         const admin= await Admin.create(adminObject)
         if(admin){
-            res.status(201).json({message: `New admin ${fullName} created!`})
+            res.status(201).json({message: `New admin ${fullName} created! `})
         } else{
             res.status(400).json({message: 'Invaild Data used'})
         }

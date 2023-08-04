@@ -31,7 +31,7 @@ const createNewUser = asyncHandler(async (req, res) =>{
         const duplicates = await User.findOne({email}).lean().exec()
 
         if(duplicates){
-            return res.status(409).json({message: 'Email already exits!'})
+            return res.status(409).json({message: 'Email already exits! '})
         }
 
         // Hash password 

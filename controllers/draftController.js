@@ -59,15 +59,10 @@ const getAlldrafts = asycHandler(async (req, res) =>{
 // @access Private
 
 const createNewdraft = asycHandler(async (req, res) =>{
-        const {proposalId, coverData, introductionData, proposalData, planofactionData , investmentData, aboutusData, contactsData, reviewsData, corporateVideoData, impressionData, closingData,  sender_email, clients_name, clients_email, clients_phone, clients_GST}= req.body
-        console.log(req.body)
+        const {proposalId, coverData, introductionData, proposalData, planofactionData , investmentData, aboutusData, contactsData, reviewsData, corporateVideoData, impressionData, closingData,  sender_email, clients_name, clients_email, clients_phone, clients_GST, proposalDetails}= req.body
+  
 
-        if(coverData){
-            console.log(coverData)
-        }
-        if(introductionData){
-            console.log(introductionData)
-        }
+       
         if(!proposalId){
             return res.status(400).json({meesage: 'ID is required!'})
         }
@@ -94,6 +89,46 @@ const createNewdraft = asycHandler(async (req, res) =>{
         // Create a store newdraft
 
         const newDraft = await Draft.create({ proposalId, clients_name, clients_email, clients_GST, clients_phone, sender});
+
+        if(proposalDetails){
+            if(proposalDetails.coverData){
+                newDraft.coverData= proposalDetails.coverData               
+            }
+            if(proposalDetails.introductionData){
+                newDraft.introductionData= proposalDetails.introductionData
+            }
+            if(proposalDetails.proposalData){
+                newDraft.proposalData= proposalDetails.proposalData
+            }
+            if(proposalDetails.investmentData){
+                newDraft.investmentData= proposalDetails.investmentData
+            }
+            if(proposalDetails.planofactionData){
+                newDraft.planofactionData= proposalDetails.planofactionData
+            }
+            if(proposalDetails.aboutusData){
+                newDraft.aboutusData= proposalDetails.aboutusData
+            }
+            if(proposalDetails.contactsData){
+                newDraft.contactsData= proposalDetails.contactsData
+            }
+            if(proposalDetails.reviewsData){
+                newDraft.reviewsData= proposalDetails.reviewsData
+            }
+            if(proposalDetails.corporateVideoData){
+                newDraft.corporateVideoData= proposalDetails.corporateVideoData
+            }
+            if(proposalDetails.impressionData){
+                newDraft.impressionData= proposalDetails.impressionData
+            }
+            if(proposalDetails.closingData){
+                newDraft.closingData= proposalDetails.closingData
+            }
+            const updateddraft= await Draft.findByIdAndUpdate(newDraft._id, newDraft)   
+            if(updateddraft){
+                console.log('Successfully Cloned!')
+            }
+        }
 
         const email = clients_email
         const foundUser= await User.findOne({email}).lean().exec()
@@ -131,7 +166,7 @@ const createNewdraft = asycHandler(async (req, res) =>{
 // @access Private
 
 const updatedraft = asycHandler(async (req, res) =>{
-    const {proposalId, coverData, introductionData, proposalData, planofactionData , investmentData, aboutusData, contactsData, reviewsData, corporateVideoData, impressionData, closingData,  sender_email, clients_name, clients_email, clients_phone, clients_GST, sendProp}= req.body
+    const {proposalId, coverData, introductionData, proposalData, planofactionData , investmentData, aboutusData, contactsData, reviewsData, corporateVideoData, impressionData, closingData,  sender_email, clients_name, clients_email, clients_phone, clients_GST, sendProp, links}= req.body
 
     //Confirm Data
     if(!proposalId){
@@ -157,9 +192,9 @@ const updatedraft = asycHandler(async (req, res) =>{
         draft.clients_phone = clients_phone
     }
     if(coverData){
-        console.log(coverData)
+       
         draft.coverData= coverData
-        console.log('Cover Changed')
+       
     }
     if(introductionData){
         draft.introductionData= introductionData
@@ -286,7 +321,7 @@ const updatedraft = asycHandler(async (req, res) =>{
                     "New Proposal Recieved!",
                     {
                       name: foundUser.fullName,
-                      
+                      link: links
                     },
                     "./template/proposal.handlebars"
                   );

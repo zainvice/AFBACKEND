@@ -133,27 +133,46 @@ const updateproposal = asycHandler(async (req, res) =>{
     
     }
     proposal.status= status
-    if(acceptData)
+    if(acceptData){
         proposal.acceptData = acceptData
-    if(questionData)
-        proposal.questionData = questionData
-    
-    
-    const updatedproposal= await Proposal.findByIdAndUpdate(proposal._id, proposal)
-    if(updatedproposal){
-        res.status(200)
+        //Woho!! Proposal is accepted!
         if(foundAdmin){
-        
             sendEmail(
                 foundAdmin.email,
-                "Proposal Update by Client!",
+                "Woho!! Proposal is accepted!",
                 {
                   name: foundAdmin.fullName,
+                  proposalName: proposal.coverData.proposalTitle,
+                  clientName: proposal.clients_name,
+                  date: acceptData.date,
                   
                 },
                 "./template/proposal.handlebars"
               );
         }
+    }
+    if(questionData){
+        proposal.questionData = questionData
+        if(foundAdmin){
+            sendEmail(
+                foundAdmin.email,
+                "You had a sales query to be addressed!",
+                {
+                  name: foundAdmin.fullName,
+                  proposalName: proposal.coverData.proposalTitle,
+                  clientName: proposal.clients_name,
+                  question: questionData.question,
+                  
+                },
+                "./template/proposalQuestion.handlebars"
+              );
+        }
+    }
+    
+    const updatedproposal= await Proposal.findByIdAndUpdate(proposal._id, proposal)
+    if(updatedproposal){
+        res.status(200)
+       
     }
 
     

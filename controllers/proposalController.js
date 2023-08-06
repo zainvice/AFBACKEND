@@ -106,7 +106,7 @@ const createNewproposal = asycHandler(async (req, res) =>{
 // @access Private
 
 const updateproposal = asycHandler(async (req, res) =>{
-    const{proposalId, status, sender, acceptData, questionData}= req.body
+    const{proposalId, status, acceptData, questionData}= req.body
 
     //Confirm Data
     if(!proposalId){
@@ -127,8 +127,8 @@ const updateproposal = asycHandler(async (req, res) =>{
     //        return res.status(409).json({message: 'Duplicate Proposal'})
     //}
     let foundAdmin
-    if(sender){
-        const email = sender
+    if(proposal.sender){
+        const email = proposal.sender
         foundAdmin= await Admin.findOne({email}).lean().exec()
     
     }

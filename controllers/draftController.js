@@ -320,7 +320,7 @@ const updatedraft = asycHandler(async (req, res) =>{
                 console.log(links)
                 sendEmail(
                     foundUser.email,
-                    "Alphabet Factory | Tailored Business Proposal Inside!",
+                    "Your Tailored Business Proposal Inside!",
                     {
                       name: foundUser.fullName,
                       link: links,

@@ -5,7 +5,9 @@ const allowedOrigins = [
     'https://afproposals.onrender.com',
     'https://www.afproposals.onrender.com',
     'https://main.duj0q0015isev.amplifyapp.com',
-    'https://www.main.duj0q0015isev.amplifyapp.com'
+    'https://www.main.duj0q0015isev.amplifyapp.com',
+    'https://proposals.alphabetfactory.com',
+    'https://www.proposals.alphabetfactory.com',
 ]
 
 module.exports = allowedOrigins

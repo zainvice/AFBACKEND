@@ -316,14 +316,18 @@ const updatedraft = asycHandler(async (req, res) =>{
                 if(savedUser){
                     console.log(`Proposal Added to ${foundUser.email} dash`)
                 }
+                console.log(foundUser.fullName)
+                console.log(links)
                 sendEmail(
                     foundUser.email,
-                    "New Proposal Recieved!",
+                    "NE WPROS!",
                     {
                       name: foundUser.fullName,
-                      link: links
+                      link: links,
+                      imgUrl: '/images/aparna-ap.png',
+                      signUrl: '/images/signature-ap.png'
                     },
-                    "./template/proposal.handlebars"
+                    "./template/newProposal.handlebars"
                   );
             }
             

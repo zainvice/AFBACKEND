@@ -20,7 +20,7 @@ const getAllproposals = asycHandler(async (req, res) =>{
 // @access Private
 
 const createNewproposal = asycHandler(async (req, res) =>{
-        const {proposalId, coverData, introductionData, proposalData, planofactionData , investmentData, aboutusData, contactsData, reviewsData, corporateVideoData, impressionData, closingData,  sender_email, clients_name, clients_email, clients_phone, clients_GST, sendProp}= req.body
+        const {proposalId, coverData, introductionData, proposalData, planofactionData , investmentData, aboutusData, contactsData, reviewsData, corporateVideoData, impressionData, closingData,  sender_email, clients_name, clients_email, clients_phone, clients_GST, sendProp, links}= req.body
     
         //Confirm data 
         if (!clients_name|| !clients_email|| !clients_phone|| !clients_GST){
@@ -84,12 +84,12 @@ const createNewproposal = asycHandler(async (req, res) =>{
                 }
                 sendEmail(
                     foundUser.email,
-                    "New Proposal Recieved!",
+                    "Alphabet Factory | Tailored Business Proposal Inside!",
                     {
                       name: foundUser.fullName,
-                      
+                      link: links
                     },
-                    "./template/proposal.handlebars"
+                    "./template/newProposal.handlebars"
                   );
             }
             res.status(201).json({message: `Proposal is now sent!`})

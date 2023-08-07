@@ -47,7 +47,7 @@ const login = asyncHandler( async(req, res) => {
         const refershToken = jwt.sign(
             {"email": foundUser.email},
             process.env.REFRESH_TOKEN_SECRET,
-            { expiresIn: '1d'}
+            { expiresIn: '2hr'}
         )
     
         res.cookie('jwt', refershToken, {
@@ -84,7 +84,7 @@ const login = asyncHandler( async(req, res) => {
         const refershToken = jwt.sign(
             {"email": foundAdmin.email},
             process.env.REFRESH_TOKEN_SECRET,
-            { expiresIn: '1d'}
+            { expiresIn: '2hr'}
         )
     
         res.cookie('jwt', refershToken, {

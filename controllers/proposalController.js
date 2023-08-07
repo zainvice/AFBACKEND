@@ -138,7 +138,7 @@ const updateproposal = asycHandler(async (req, res) =>{
         //Woho!! Proposal is accepted!
         if(foundAdmin){
             sendEmail(
-                foundAdmin.email,
+                "sales@alphabetfactory.in",
                 "Woho!! Proposal is accepted!",
                 {
                   name: foundAdmin.fullName,
@@ -155,7 +155,7 @@ const updateproposal = asycHandler(async (req, res) =>{
         proposal.questionData = questionData
         if(foundAdmin){
             sendEmail(
-                foundAdmin.email,
+                "sales@alphabetfactory.in",
                 "You had a sales query to be addressed!",
                 {
                   name: foundAdmin.fullName,
